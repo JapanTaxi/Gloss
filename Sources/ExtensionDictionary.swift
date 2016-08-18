@@ -146,7 +146,7 @@ public extension Dictionary {
             if let settable = subdict as? Value {
                 self[first] = settable
             } else {
-                print("[Gloss] Unable to set value: \(subdict) to dictionary of type: \(self.dynamicType)")
+                print("[Gloss] Unable to set value: \(subdict) to dictionary of type: \(type(of: self))")
             }
         }
         
