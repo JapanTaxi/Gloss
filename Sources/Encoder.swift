@@ -252,7 +252,7 @@ public struct Encoder {
             enumValue in
             
             if let enumValue = enumValue {
-                return [key : enumValue.rawValue as! AnyObject]
+                return [key : enumValue.rawValue as AnyObject]
             }
             
             return nil
@@ -277,7 +277,7 @@ public struct Encoder {
                     rawValues.append(enumValue.rawValue)
                 }
                 
-                return [key : rawValues as! AnyObject]
+                return [key : rawValues as AnyObject]
             }
             
             return nil
