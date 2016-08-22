@@ -35,7 +35,7 @@ class ObjectToJSONFlowTests: XCTestCase {
         super.setUp()
         
         testModel = TestModel(json: [
-            "bool" : true,
+            "bool" : true as AnyObject,
             "boolArray" : [true, false, true],
             "integer" : 1,
             "integerArray" : [1, 2, 3],
@@ -134,7 +134,7 @@ class ObjectToJSONFlowTests: XCTestCase {
         XCTAssertTrue(resultDate8601Array == [1439071033, 1439071033], "JSON created from model should have correct values")
         
         XCTAssertTrue((result!["url"] as! String == "http://github.com"), "JSON created from model should have correct values")
-        XCTAssertTrue(((result!["urlArray"] as! [URL]).map { url in url.absoluteString! } == ["http://github.com", "http://github.com"]), "JSON created from model should have correct values")
+        XCTAssertTrue(((result!["urlArray"] as! [URL]).map { url in url.absoluteString } == ["http://github.com", "http://github.com"]), "JSON created from model should have correct values")
         
         let otherModel = (result!["dictionary"] as! [String : JSON])["otherModel"]!
         

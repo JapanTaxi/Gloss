@@ -36,7 +36,7 @@ class OperatorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        let testJSONPath: NSString = Bundle(for: self.dynamicType).pathForResource("TestModel", ofType: "json")!
+        let testJSONPath: NSString = Bundle(for: type(of: self)).pathForResource("TestModel", ofType: "json")!
         let testJSONData: Data = try! Data(contentsOf: URL(fileURLWithPath: testJSONPath as String))
         
         do {
@@ -45,8 +45,8 @@ class OperatorTests: XCTestCase {
             print(error)
         }
         
-        testNestedModel1 = TestNestedModel(json: [ "id" : 1, "name" : "nestedModel1" ])
-        testNestedModel2 = TestNestedModel(json: ["id" : 2, "name" : "nestedModel2"])
+        testNestedModel1 = TestNestedModel(json: [ "id" : 1 as AnyObject, "name" : "nestedModel1" as AnyObject ])
+        testNestedModel2 = TestNestedModel(json: ["id" : 2 as AnyObject, "name" : "nestedModel2" as AnyObject])
     }
     
     override func tearDown() {

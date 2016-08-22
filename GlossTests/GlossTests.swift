@@ -37,7 +37,7 @@ class GlossTests: XCTestCase {
         super.setUp()
         
         var testJSON: JSON? = [:]
-        let testJSONPath: NSString = Bundle(for: self.dynamicType).pathForResource("TestModel", ofType: "json")!
+        let testJSONPath: NSString = Bundle(for: type(of: self)).pathForResource("TestModel", ofType: "json")!
         let testJSONData: Data = try! Data(contentsOf: URL(fileURLWithPath: testJSONPath as String))
         
         do {
@@ -49,7 +49,7 @@ class GlossTests: XCTestCase {
         testJSONArray = [testJSON!, testJSON!]
         
         testModelsJSON = [
-            "bool" : true,
+            "bool" : true as AnyObject,
             "boolArray" : [true, false, true],
             "integer" : 1,
             "integerArray" : [1, 2, 3],
@@ -95,7 +95,7 @@ class GlossTests: XCTestCase {
     func testDateFormatterISO8601HasCorrectLocale() {
         let dateFormatterISO8601 = GlossDateFormatterISO8601
         
-        XCTAssertTrue(dateFormatterISO8601.locale.localeIdentifier == "en_US_POSIX", "Date formatter ISO8601 should have correct locale.")
+        XCTAssertTrue(dateFormatterISO8601.locale.identifier == "en_US_POSIX", "Date formatter ISO8601 should have correct locale.")
     }
     
     func testDateFormatterISO8601HasCorrectDateFormat() {
@@ -112,9 +112,9 @@ class GlossTests: XCTestCase {
     }
     
     func testJsonifyTurnsArrayOfJsonDictsToSingleJsonDict() {
-        let jsonDict1: JSON? = ["a" : true, "b" : false]
-        let jsonDict2: JSON? = ["d" : "e", "f" : "g"]
-        let jsonDict3: JSON? = ["j" : 1, "k" : 2]
+        let jsonDict1: JSON? = ["a" : true as AnyObject, "b" : false]
+        let jsonDict2: JSON? = ["d" : "e" as AnyObject, "f" : "g"]
+        let jsonDict3: JSON? = ["j" : 1 as AnyObject, "k" : 2]
         
         let result = jsonify([jsonDict1, jsonDict2, jsonDict3])
         
@@ -187,7 +187,7 @@ class GlossTests: XCTestCase {
     }
     
     func testModelsFromJSONArrayReturnsNilIfDecodingFails() {
-        testJSONArray![0].removeValueForKey("bool")
+        testJSONArray![0].removeValue(forKey: "bool")
         
         let result = [TestModel].fromJSONArray(testJSONArray!)
 
@@ -290,7 +290,7 @@ class GlossTests: XCTestCase {
     func testJsonifyTurnsJSONOptionalArrayToSingleJSONOptional() {
         let json1 = ["test1" : 1 ]
         let json2 = ["test2" : 2 ]
-        let result = jsonify([json1, json2])
+        let result = jsonify([json1 as Optional<Dictionary<String, AnyObject>>, json2])
         
         XCTAssertTrue(result!["test1"] as! Int == 1, "Jsonify should turn JSON optional array to single JSON optional")
         XCTAssertTrue(result!["test2"] as! Int == 2, "Jsonify should turn JSON optional array to single JSON optional")
